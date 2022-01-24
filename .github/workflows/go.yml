@@ -1,0 +1,34 @@
+name: Test
+
+on:
+  push:
+    branches: [ '*' ]
+  pull_request:
+    branches: [ '*' ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        go_version: [ '1.14', '1.15', '1.16', '1.17' ]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-go@v1
+        with:
+          go-version: ${{ matrix.go_version }}
+
+      - name: Install go dependencies
+        run: go get -t -v ./...
+
+      - name: Run go tests on ${{ matrix.go_version }}
+        run: go test -v -cover -coverprofile=coverage.txt -covermode=atomic ./...
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v2
+        with:
+          directory: ./
+          fail_ci_if_error: true
+          env_vars: OS,GOVERSION
+          flags: unittests
+          verbose: true
