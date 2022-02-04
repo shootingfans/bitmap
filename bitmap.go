@@ -95,6 +95,7 @@ type Map interface {
 	RevRange(func(num int) bool)
 }
 
+// recognize 32bit or 64bit and defined the int bit capacity
 const intSize = 32 << (^uint(0) >> 63)
 
 // NewMap create a bitmap

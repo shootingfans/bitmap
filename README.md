@@ -5,4 +5,19 @@
 
 # bitmap
 
-a bitmap struct realize by golang
+A bitmap struct realize by golang.
+
+## introduction
+
+The bitmap structure is use bit to store **unrepeated** numbers.
+In this package bitmap will use `[]int` store numbers, it can be used in 32bit or 64bit environment.
+
+## interface
+
+### Map
+
+The Map interface is used to store numbers and find whether exists.
+
+### SortMap
+
+The SortMap interface is used to sort numbers.

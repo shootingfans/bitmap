@@ -109,10 +109,12 @@ func buildSortMap(number int, numbers ...int) SortMap {
 	return m
 }
 
+// Sort is returned the input numbers by small to large
 func Sort(number int, numbers ...int) []int {
 	return buildSortMap(number, numbers...).Sort()
 }
 
+// RevSort is returned the input numbers by large to small
 func RevSort(number int, numbers ...int) []int {
 	return buildSortMap(number, numbers...).RSort()
 }
