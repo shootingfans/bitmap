@@ -1,6 +1,7 @@
 package bitmap
 
 import (
+	"fmt"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -65,4 +66,34 @@ func BenchmarkNewMap(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		m.Store(i % 0xffff)
 	}
+}
+
+func ExampleNewMap() {
+	m := NewMap(0xff) // store number 0 ~ 0xff
+	m.Exists(100)     // this will return false
+	m.Store(100)      // store 100 to map
+	m.Exists(100)     // this will return true
+	m.Remove(100)     // remove 100 from map
+	m.Exists(100)     // this will return false
+}
+
+func ExampleBitmap_Range() {
+	m := NewMap(0xff) // store number 0 ~ 0xff
+	// store some numbers
+	m.Store(50)
+	m.Store(60)
+	m.Store(10)
+	m.Store(100)
+	m.Store(34)
+	// iterator the numbers by small to large
+	m.Range(func(num int) bool {
+		fmt.Println(num)
+		return true // return true to continue iterator
+	})
+	// result:
+	// 10
+	// 34
+	// 50
+	// 60
+	// 100
 }

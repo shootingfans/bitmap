@@ -1,6 +1,7 @@
 package bitmap
 
 import (
+	"fmt"
 	"math"
 	"testing"
 
@@ -42,4 +43,76 @@ func TestSort(t *testing.T) {
 		RevSort(908, 100, 31, 554, 193, 1003, 101, 200, 20, 431, 183, 19),
 		[]int{1003, 908, 554, 431, 200, 193, 183, 101, 100, 31, 20, 19},
 	)
+}
+
+func ExampleSort() {
+	// sort some number by small to large
+	result := Sort(100, 30, 50, 90, 101, 300, 400, 5, 14, 99)
+	for _, number := range result {
+		fmt.Println(number)
+	}
+	// result:
+	// 5
+	// 14
+	// 30
+	// 50
+	// 90
+	// 99
+	// 100
+	// 101
+	// 300
+	// 400
+}
+
+func ExampleRevSort() {
+	// sort some number by large to small
+	result := Sort(100, 30, 50, 90, 101, 300, 400, 5, 14, 99)
+	for _, number := range result {
+		fmt.Println(number)
+	}
+	// result:
+	// 400
+	// 300
+	// 101
+	// 100
+	// 99
+	// 90
+	// 50
+	// 30
+	// 14
+	// 5
+}
+
+func ExampleNewSortMap() {
+	// some numbers  100, 10, 95, 5, 131, 260
+	numbers := []int{100, 10, 95, 5, 131, 260}
+	m := NewSortMap(5, 260)
+	for _, number := range numbers {
+		m.Put(number)
+	}
+	// iterator numbers by small to large
+	m.Range(func(number int) bool {
+		fmt.Println(number)
+		return true // return true to continue iterator
+	})
+	// result:
+	// 5
+	// 10
+	// 95
+	// 100
+	// 131
+	// 260
+
+	// iterator numbers by large to small
+	m.RevRange(func(number int) bool {
+		fmt.Println(number)
+		return true // return true to continue iterator
+	})
+	// result:
+	// 260
+	// 131
+	// 100
+	// 95
+	// 10
+	// 5
 }
